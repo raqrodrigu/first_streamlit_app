@@ -21,7 +21,10 @@ my_fruit_list= my_fruit_list.set_index('Fruit')
 #Agregaremos un widget interactivo para el usuario llamado Selección múltiple que permitirá a los usuarios 
 #elegir las frutas que desean en sus batidos.
 #hasta este paso el selector se ponía en forma de números (pero al añadir la fila 19 se soluciona)
-streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index))
+#streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index))
+
+#dejamos un ejemplo por defecto para el cliente
+streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Avocado','Strawberries'])
 
 #pedimos que nos muestre los datos en la pagina
 streamlit.dataframe(my_fruit_list)
