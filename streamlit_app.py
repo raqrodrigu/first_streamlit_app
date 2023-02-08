@@ -24,8 +24,14 @@ my_fruit_list= my_fruit_list.set_index('Fruit')
 #streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index))
 
 #dejamos un ejemplo por defecto para el cliente
-streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Avocado','Strawberries'])
+#streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Avocado','Strawberries'])
 
 #pedimos que nos muestre los datos en la pagina
-streamlit.dataframe(my_fruit_list)
+#streamlit.dataframe(my_fruit_list)
  
+#añadimos la mejora de que cuando has seleccionado un/as frutas solo aparezca esa seleccion en la tabla
+fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Avocado','Strawberries'])
+fruits_to_show = my_fruit_list.loc[fruits_selected]
+
+#mostramos la tabla en la pagina
+stramlit.dataframe(fruits_to_show)
