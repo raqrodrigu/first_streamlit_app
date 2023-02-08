@@ -15,5 +15,12 @@ streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 import pandas
 
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
+
+#Agregaremos un widget interactivo para el usuario llamado Selección múltiple que permitirá a los usuarios 
+#elegir las frutas que desean en sus batidos.
+#hasta este paso el selector se ponía en forma de números
+streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index))
+
 #pedimos que nos muestre los datos en la pagina
 streamlit.dataframe(my_fruit_list)
+ 
