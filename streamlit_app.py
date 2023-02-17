@@ -1,4 +1,9 @@
 import streamlit
+#importamos pandas para leer nuestro CSV de s3 
+import pandas
+import requests
+import snowflake.connector
+from urllib.error import URLError
 
 streamlit.title('My parents New Healthy Diner')
 
@@ -12,7 +17,7 @@ streamlit.text(' 🥑🍞 Avocado Toast')
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
 #importamos pandas para leer nuestro CSV de s3 
-import pandas
+#import pandas
 
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 #añadimos el indice con el nombre de la fruta
@@ -43,7 +48,7 @@ streamlit.header("Fruityvice Fruit Advice!")
 fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
 streamlit.write('The user entered ', fruit_choice)
 
-import requests
+#import requests
 #fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 #streamlit.text(fruityvice_response.json())
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
@@ -53,7 +58,10 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # lo mostramos como tabla
 streamlit.dataframe(fruityvice_normalized)
 
-import snowflake.connector
+#paramos la ejecucion
+streamlit.stop()
+
+#import snowflake.connector
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 #my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
