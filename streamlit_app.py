@@ -41,22 +41,29 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 #mostramos la tabla en la pagina
 streamlit.dataframe(fruits_to_show)
 
+########## NEW SECTION
 #añadimos un requests
-streamlit.header("Fruityvice Fruit Advice!")
-
-#añadimos un buscador de la fruta que queramos saber
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
-
 #import requests
+streamlit.header("Fruityvice Fruit Advice!")
+#nueva estructura para separar el codigo que se carga una vez del que se debe repetir
+try:
+   #añadimos un buscador de la fruta que queramos saber
+   fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
+   if not fruit_chice:
+         #streamlit.write('The user entered ', fruit_choice)
+         streamlit.error("Please select a fruit to get information.")
+   else:
+        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+        #cogemos la version json yla normalizamos 
+        fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+        # lo mostramos como tabla
+        streamlit.dataframe(fruityvice_normalized)
+     
+except URLError as e:
+   streamlit.error()
+     
 #fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 #streamlit.text(fruityvice_response.json())
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
-
-#cogemos la version json yla normalizamos 
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# lo mostramos como tabla
-streamlit.dataframe(fruityvice_normalized)
 
 #paramos la ejecucion
 streamlit.stop()
